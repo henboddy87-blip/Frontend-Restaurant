@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="km">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delicious - អំពីយើង</title>
+  <link rel="icon" href="logo.png" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;500;600;700&family=Noto+Serif+Khmer:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#ff9d42',
+            'primary-light': '#ffc98d',
+            accent: '#ffb76b',
+            'bg-dark': '#0b0b0b',
+            'bg-card': '#181818',
+          },
+          fontFamily: {
+            battambang: ['Battambang', 'Noto Serif Khmer', 'serif'],
+            'noto-khmer': ['Noto Serif Khmer', 'Battambang', 'serif'],
+          },
+          animation: {
+            'loader-hide': 'loaderHide 2.5s ease forwards',
+            'page-intro': 'pageIntro 0.9s ease 0.4s forwards',
+            'ring-spin': 'ringSpin 1.5s linear infinite',
+          },
+          keyframes: {
+            loaderHide: {
+              '0%, 70%': { opacity: '1', visibility: 'visible' },
+              '90%, 100%': { opacity: '0', visibility: 'hidden' },
+            },
+            pageIntro: {
+              from: { opacity: '0', transform: 'translateY(18px)' },
+              to: { opacity: '1', transform: 'translateY(0)' },
+            },
+            ringSpin: {
+              to: { transform: 'rotate(360deg)' },
+            },
+            heroSlide: {
+              '0%': { opacity: '0', transform: 'scale(1.08)' },
+              '8%': { opacity: '1' },
+              '20%': { opacity: '1', transform: 'scale(1)' },
+              '28%': { opacity: '0' },
+              '100%': { opacity: '0' },
+            },
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    html,
+    body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      opacity: 0;
+      animation: pageIntro 0.9s ease 0.4s forwards;
+    }
+
+    img {
+      width: 100%;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    @keyframes pageIntro {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes heroSlide {
+      0% {
+        opacity: 0;
+        transform: scale(1.08);
+      }
+
+      8% {
+        opacity: 1;
+      }
+
+      20% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      28% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      animation: heroSlide 25s infinite;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transform: scale(1.08);
+    }
+
+    .slide1 {
+      background-image: url("https://www.agoda.com/wp-content/uploads/2025/06/Khmer-food-Featured-image-1244x700.jpg");
+      animation-delay: 0s;
+    }
+
+    .slide2 {
+      background-image: url("https://gadttravel.com/uploads/cambodia/siem-reap/Cambodian-Cuisine-Selection-scaled.jpg");
+      animation-delay: 5s;
+    }
+
+    .slide3 {
+      background-image: url("https://media-cdn.tripadvisor.com/media/photo-m/1280/2a/3e/00/d1/chef-s-set-chhut-me-chong.jpg");
+      animation-delay: 10s;
+    }
+
+    .slide4 {
+      background-image: url("https://changkrankhmer.opte.io/wp-content/uploads/sites/3113/2019/04/drink-3-500.jpg");
+      animation-delay: 15s;
+    }
+
+    .slide5 {
+      background-image: url("https://malis.thalias.com.kh/wp-content/uploads/2015/12/khmer-dessert.jpg");
+      animation-delay: 20s;
+    }
+
+    .mobile-nav {
+      position: fixed;
+      top: 0;
+      right: -320px;
+      width: 300px;
+      max-width: 80vw;
+      height: 100vh;
+      background: linear-gradient(180deg, rgba(12, 12, 12, 0.98), rgba(6, 6, 6, 0.98));
+      box-shadow: -12px 0 30px rgba(0, 0, 0, 0.5);
+      padding: 92px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      transition: right 0.36s cubic-bezier(0.22, 0.9, 0.33, 1);
+      z-index: 2000;
+    }
+
+    .mobile-nav.active {
+      right: 0;
+    }
+
+    .menu-close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 32px;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1500;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      transition: opacity 0.3s ease;
+    }
+
+    .nav-overlay.active {
+      display: block;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 100%;
+      height: 3px;
+      background: #fff;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    .header {
+      transition: background-color 0.28s ease, box-shadow 0.28s ease, padding 0.2s ease;
+    }
+
+    .header.scrolled {
+      background: rgba(6, 6, 6, 0.86);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      padding: 18px 7%;
+    }
+
+    .qty-input::-webkit-outer-spin-button,
+    .qty-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 4000;
+      padding: 40px;
+    }
+
+    .lightbox:target {
+      display: grid;
+    }
+
+    .lightbox img {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 22px;
+      box-shadow: 0 40px 120px rgba(0, 0, 0, 0.45);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      color: #fff;
+      font-size: 32px;
+      text-decoration: none;
+      opacity: 0.8;
+      transition: opacity 0.25s ease;
+    }
+
+    .lightbox-close:hover {
+      opacity: 1;
+    }
+
+    iframe.video-bg {
+      pointer-events: none;
+      transform: scale(1.5);
+    }
+
+    .video-item video,
+    .video-item iframe {
+      pointer-events: none;
+      transform: scale(1.5);
+      border: none;
+    }
+
+    .menu-details li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #ff9d42;
+    }
+
+    .service-box:hover {
+      transform: translateY(-10px);
+    }
+
+    .chef-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-card:hover img {
+      transform: scale(1.1);
+      filter: brightness(1.05);
+    }
+
+    .gallery-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .offer {
+      background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("https://changkrankhmer.opte.io/wp-content/uploads/sites/3113/2019/04/restaurant-500.jpg");
+      background-size: cover;
+      background-position: center;
+    }
+  </style>
+</head>
+
+<body class="font-noto-khmer bg-bg-dark text-white">
+
+  <!-- Navbar -->
+  <header
+    class="header fixed top-0 left-0 w-full flex justify-between items-center px-[7%] py-[25px] z-[1000] bg-transparent backdrop-blur-sm">
+    <a href="home.html"
+      class="flex items-center gap-3 text-[50px] text-accent font-bold font-battambang no-underline transition-transform duration-300 hover:scale-[1.02]">
+      <img src="logo.png" alt="Delicious Logo" class="h-[70px] w-auto object-contain" />
+      <span>Delicious</span>
+    </a>
+
+    <nav class="navbar flex gap-[35px] max-[991px]:hidden">
+      <a href="home.html" class="text-white text-[15px] transition-colors duration-300 hover:text-accent">ទំព័រដើម</a>
+      <a href="about.html" class="text-white text-[15px] transition-colors duration-300 hover:text-accent">អំពីយើង</a>
+      <a href="services.html"
+        class="text-white text-[15px] transition-colors duration-300 hover:text-accent">សេវាកម្ម</a>
+      <a href="menu.html" class="text-white text-[15px] transition-colors duration-300 hover:text-accent">ម៉ឺនុយ</a>
+      <a href="gallery.html" class="text-white text-[15px] transition-colors duration-300 hover:text-accent">រូបភាព</a>
+      <a href="contact.html"
+        class="text-white text-[15px] transition-colors duration-300 hover:text-accent">ទំនាក់ទំនង</a>
+    </nav>
+
+    <div class="flex items-center gap-[15px]">
+      <a href=""
+        class="cart-btn bg-primary text-black !no-underline px-6 py-3 rounded-[40px] font-semibold text-[15px] inline-flex items-center justify-center gap-2 border-none cursor-pointer transition-all duration-300 hover:bg-primary-light hover:-translate-y-[2px] hover:shadow-[0_8px_20px_rgba(255,157,66,0.2)]"
+        id="cart-open">
+        <span>ត្រៀមកម្មង់</span>
+      </a>
+
+      <a href="book-table.html"
+        class="header-btn bg-primary text-black !no-underline px-6 py-3 rounded-[40px] font-semibold text-[15px] inline-flex items-center justify-center gap-2 border-none cursor-pointer transition-all duration-300 hover:bg-primary-light hover:-translate-y-[2px] hover:shadow-[0_8px_20px_rgba(255,157,66,0.2)] max-[991px]:hidden">កក់តុ</a>
+
+      <button
+        class="nav-toggle hidden max-[991px]:flex bg-transparent border-none cursor-pointer flex-col justify-between w-[28px] h-[18px] p-0 z-[2001]"
+        id="menu-toggle" aria-label="Open navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <aside class="mobile-nav" id="mobile-menu" aria-hidden="true">
+      <button class="menu-close" id="menu-close" aria-label="Close navigation">&times;</button>
+      <a href="home.html"
+        class="text-white no-underline font-semibold text-lg py-2 px-1.5 transition-colors duration-300 hover:text-accent">ទំព័រដើម</a>
+      <a href="about.html"
+        class="text-white no-underline font-semibold text-lg py-2 px-1.5 transition-colors duration-300 hover:text-accent">អំពីយើង</a>
+      <a href="services.html"
+        class="text-white no-underline font-semibold text-lg py-2 px-1.5 transition-colors duration-300 hover:text-accent">សេវាកម្ម</a>
+      <a href="menu.html"
+        class="text-white no-underline font-semibold text-lg py-2 px-1.5 transition-colors duration-300 hover:text-accent">ម៉ឺនុយ</a>
+      <a href="gallery.html"
+        class="text-white no-underline font-semibold text-lg py-2 px-1.5 transition-colors duration-300 hover:text-accent">រូបភាព</a>
+      <a href="book-table.html"
+        class="text-white no-underline font-semibold text-lg py-2 px-1.5 transition-colors duration-300 hover:text-accent">កក់តុ</a>
+      <a href="contact.html"
+        class="text-white no-underline font-semibold text-lg py-2 px-1.5 transition-colors duration-300 hover:text-accent">ទំនាក់ទំនង</a>
+      <a href="book-table.html"
+        class="mobile-book mt-3 inline-block bg-primary text-black px-5 py-3 rounded-[40px] font-semibold text-center transition-colors duration-300 hover:bg-primary-light">កក់តុ</a>
+    </aside>
+
+    <div class="nav-overlay" id="nav-overlay"></div>
+  </header>
+
+  <!-- About -->
+  <section class="about flex items-center gap-[80px] px-[7%] py-[100px] bg-[#111111] max-[991px]:flex-col" id="about">
+    <div class="about-images flex-1 relative">
+      <img src="https://www.agoda.com/wp-content/uploads/2025/06/Khmer-food-Featured-image-1244x700.jpg"
+        class="about-main h-[600px] object-cover rounded-[30px] w-full" loading="lazy" />
+      <img
+        src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/ca/5d/27/wwwchangkrankhmercom.jpg?w=900&h=500&s=1"
+        class="about-small absolute w-[260px] right-[-40px] bottom-[-40px] rounded-[25px] border-8 border-[#111111] max-[768px]:hidden" />
+    </div>
+
+    <div class="about-content flex-1">
+      <span class="section-tag text-accent tracking-[3px] text-sm">អំពីយើង</span>
+      <h2
+        class="text-[62px] leading-[1.1] my-5 font-battambang max-[1200px]:text-[50px] max-[768px]:text-[40px] max-[480px]:text-[34px]">
+        ភោជនីយដ្ឋានប្រកបដោយអាហារឆ្ងាញ់ជាមួយបរិយាកាសឥតខ្ចោះ</h2>
+      <p class="text-[#cccccc] leading-[1.9] mb-10">
+        ភោជនីយដ្ឋាន Delicious
+        ផ្តល់បទពិសោធន៍អាហារប្រណិតជាមួយមុខម្ហូបឆ្ងាញ់, បច្ចេកទេសសម័យថ្មី
+        និងបរិយាកាសបុរាណ។
+      </p>
+
+      <div class="about-features grid grid-cols-2 gap-5 mb-10 max-[991px]:grid-cols-1">
+        <div class="feature-card bg-bg-card p-[30px] rounded-[20px]">
+          <h4 class="text-accent mb-2.5">គ្រឿងផ្សំស្រស់</h4>
+          <p class="text-[#cccccc]">បន្លែស្រស់ស្អាត, ម្ហូបសមុទ្រ និងសាច់ប្រកបដោយគុណភាពខ្ពស់។</p>
+        </div>
+        <div class="feature-card bg-bg-card p-[30px] rounded-[20px]">
+          <h4 class="text-accent mb-2.5">ចុងភៅជំនាញ</h4>
+          <p class="text-[#cccccc]">ចុងភៅជំនាញ ដែលមានបទពិសោធន៍នៃការរៀបចំអាហារបែបខ្មែរបុរាណ។</p>
+        </div>
+        <div class="feature-card bg-bg-card p-[30px] rounded-[20px]">
+          <h4 class="text-accent mb-2.5">បរិយាកាស</h4>
+          <p class="text-[#cccccc]">បរិយាកាស បែបធម្មជាតិ ទទួលទានដោយអារម្មណ៍ស្រស់ស្រាយ</p>
+        </div>
+        <div class="feature-card bg-bg-card p-[30px] rounded-[20px]">
+          <h4 class="text-accent mb-2.5">ផាសុខភាព</h4>
+          <p class="text-[#cccccc]">ម្ហូបអាហារបានវិចខ្ចប់យ៉ាងត្រឹមត្រូវ អនាម័យខ្ពស់</p>
+        </div>
+      </div>
+
+      <a href="menu.html"
+        class="primary-btn bg-primary text-black px-[34px] py-4 rounded-[50px] font-semibold transition-colors duration-300 hover:bg-primary-light">ស្វែងរកម៉ឺនុយ</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer px-[7%] pt-[100px] pb-[40px] bg-[#050505]" id="contact">
+    <div
+      class="footer-top grid grid-cols-[1.6fr_1fr_1fr] gap-10 mb-[50px] max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
+      <div class="footer-brand">
+        <a href="home.html"
+          class="flex items-center gap-3 text-[50px] text-accent font-bold font-battambang no-underline">
+          <img src="logo.png" alt="Delicious Logo" class="h-[70px] w-auto object-contain" />
+          <span>Delicious</span>
+        </a>
+        <p class="text-[#c8c8c8] max-w-[320px] mb-[22px] mt-4">គេហទំព័រភោជនីយដ្ឋាន Delicious Restaurant
+          ដែលមានការរចនាសម័យទំនើប។</p>
+        <div class="footer-social flex gap-3 flex-wrap items-center">
+          <a href="#" aria-label="youtube"
+            class="inline-flex items-center gap-2.5 px-[10px] py-2 rounded-xl text-white no-underline bg-transparent transition-all duration-[0.28s] hover:-translate-y-1 hover:bg-gradient-to-r hover:from-primary hover:to-accent hover:text-[#111] hover:shadow-[0_10px_30px_rgba(255,157,66,0.14)]">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/YouTube_full-color_icon_%282017%29.svg/3840px-YouTube_full-color_icon_%282017%29.svg.png"
+              alt="Youtube" class="w-[22px] h-[22px] block" />
+          </a>
+          <a href="#" aria-label="Facebook"
+            class="inline-flex items-center gap-2.5 px-[10px] py-2 rounded-xl text-white no-underline bg-transparent transition-all duration-[0.28s] hover:-translate-y-1 hover:bg-gradient-to-r hover:from-primary hover:to-accent hover:text-[#111] hover:shadow-[0_10px_30px_rgba(255,157,66,0.14)]">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Facebook_f_logo_%282021%29.svg/3840px-Facebook_f_logo_%282021%29.svg.png"
+              alt="Facebook" class="w-[22px] h-[22px] block" />
+          </a>
+          <a href="#" aria-label="Telegram"
+            class="inline-flex items-center gap-2.5 px-[10px] py-2 rounded-xl text-white no-underline bg-transparent transition-all duration-[0.28s] hover:-translate-y-1 hover:bg-gradient-to-r hover:from-primary hover:to-accent hover:text-[#111] hover:shadow-[0_10px_30px_rgba(255,157,66,0.14)]">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/3840px-Telegram_logo.svg.png"
+              alt="Telegram" class="w-[22px] h-[22px] block" />
+          </a>
+          <a href="#" aria-label="Tik Tok"
+            class="inline-flex items-center gap-2.5 px-[10px] py-2 rounded-xl text-white no-underline bg-transparent transition-all duration-[0.28s] hover:-translate-y-1 hover:bg-gradient-to-r hover:from-primary hover:to-accent hover:text-[#111] hover:shadow-[0_10px_30px_rgba(255,157,66,0.14)]">
+            <img src="https://cdn.pixabay.com/photo/2021/06/15/12/28/tiktok-6338432_1280.png" alt="Tik Tok"
+              class="w-[22px] h-[22px] block" />
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-links grid gap-4">
+        <h3 class="text-lg font-semibold text-white">តំណភ្លាមៗ</h3>
+        <a href="home.html"
+          class="text-white transition-all duration-[0.24s] hover:text-accent hover:translate-x-1.5">ទំព័រដើម</a>
+        <a href="about.html"
+          class="text-white transition-all duration-[0.24s] hover:text-accent hover:translate-x-1.5">អំពីយើង</a>
+        <a href="menu.html"
+          class="text-white transition-all duration-[0.24s] hover:text-accent hover:translate-x-1.5">ម៉ឺនុយ</a>
+        <a href="gallery.html"
+          class="text-white transition-all duration-[0.24s] hover:text-accent hover:translate-x-1.5">រូបភាព</a>
+        <a href="book-table.html"
+          class="text-white transition-all duration-[0.24s] hover:text-accent hover:translate-x-1.5">កក់តុ</a>
+      </div>
+
+      <div class="footer-hours grid gap-4">
+        <h3 class="text-lg font-semibold text-white">ម៉ោងបើក</h3>
+        <p class="text-white text-sm">ច័ន្ទ - សុក្រ</p>
+        <p class="text-gray-400 text-sm">10:00 ព្រឹក - 12:00 យប់</p>
+        <p class="text-white text-sm">សៅរ៍</p>
+        <p class="text-gray-400 text-sm">10:00 ព្រឹក - 12:00 យប់</p>
+        <p class="text-white text-sm">អាទិត្យ</p>
+        <p class="text-gray-400 text-sm">10:00 ព្រឹក - 12:00 យប់</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom text-center pt-[30px] text-[#888] border-t border-[rgba(255,255,255,0.06)]">
+      <p>&copy; 2026 Delicious Restaurant. រក្សាសិទ្ធិគ្រប់យ៉ាង។</p>
+    </div>
+  </footer>
+
+</body>
+
+</html>
