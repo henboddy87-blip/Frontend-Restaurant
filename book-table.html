@@ -4,13 +4,59 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Delicious - កក់តុ</title>
-    <link rel="icon" href="logo.png" />
+    <link rel="icon" href="public/logo.png" />
     <link
       href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;500;600;700&family=Noto+Serif+Khmer:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
 
-    <style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#ff9d42',
+            'primary-light': '#ffc98d',
+            accent: '#ffb76b',
+            'bg-dark': '#0b0b0b',
+            'bg-card': '#181818',
+          },
+          fontFamily: {
+            battambang: ['Battambang', 'Noto Serif Khmer', 'serif'],
+            'noto-khmer': ['Noto Serif Khmer', 'Battambang', 'serif'],
+          },
+          animation: {
+            'loader-hide': 'loaderHide 2.5s ease forwards',
+            'page-intro': 'pageIntro 0.9s ease 0.4s forwards',
+            'ring-spin': 'ringSpin 1.5s linear infinite',
+          },
+          keyframes: {
+            loaderHide: {
+              '0%, 70%': { opacity: '1', visibility: 'visible' },
+              '90%, 100%': { opacity: '0', visibility: 'hidden' },
+            },
+            pageIntro: {
+              from: { opacity: '0', transform: 'translateY(18px)' },
+              to: { opacity: '1', transform: 'translateY(0)' },
+            },
+            ringSpin: {
+              to: { transform: 'rotate(360deg)' },
+            },
+            heroSlide: {
+              '0%': { opacity: '0', transform: 'scale(1.08)' },
+              '8%': { opacity: '1' },
+              '20%': { opacity: '1', transform: 'scale(1)' },
+              '28%': { opacity: '0' },
+              '100%': { opacity: '0' },
+            },
+          },
+        },
+      },
+    }
+  </script>
+
+  <style>
       * {
         margin: 0;
         padding: 0;
@@ -78,23 +124,23 @@
         transform: scale(1.08);
       }
       .slide1 {
-        background-image: url("https://www.agoda.com/wp-content/uploads/2025/06/Khmer-food-Featured-image-1244x700.jpg");
+        background-image: url("public/hero1.png");
         animation-delay: 0s;
       }
       .slide2 {
-        background-image: url("https://gadttravel.com/uploads/cambodia/siem-reap/Cambodian-Cuisine-Selection-scaled.jpg");
+        background-image: url("public/hero2.png");
         animation-delay: 5s;
       }
       .slide3 {
-        background-image: url("https://media-cdn.tripadvisor.com/media/photo-m/1280/2a/3e/00/d1/chef-s-set-chhut-me-chong.jpg");
+        background-image: url("public/hero3.png");
         animation-delay: 10s;
       }
       .slide4 {
-        background-image: url("https://changkrankhmer.opte.io/wp-content/uploads/sites/3113/2019/04/drink-3-500.jpg");
+        background-image: url("public/hero4.png");
         animation-delay: 15s;
       }
       .slide5 {
-        background-image: url("https://malis.thalias.com.kh/wp-content/uploads/2015/12/khmer-dessert.jpg");
+        background-image: url("public/hero5.png");
         animation-delay: 20s;
       }
 
@@ -238,7 +284,7 @@
         class="flex items-center gap-3 text-[50px] text-accent font-bold font-battambang no-underline transition-transform duration-300 hover:scale-[1.02]"
       >
         <img
-          src="logo.png"
+          src="public/logo.png"
           alt="Delicious Logo"
           class="h-[70px] w-auto object-contain"
         />
@@ -442,7 +488,7 @@
             class="flex items-center gap-3 text-[50px] text-accent font-bold font-battambang no-underline"
           >
             <img
-              src="logo.png"
+              src="public/logo.png"
               alt="Delicious Logo"
               class="h-[70px] w-auto object-contain"
             />
