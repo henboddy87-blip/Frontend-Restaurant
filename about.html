@@ -156,6 +156,10 @@
       animation-delay: 20s;
     }
 
+    .mobile-nav-wrapper {
+      position: relative;
+    }
+
     .mobile-nav {
       position: fixed;
       top: 0;
@@ -173,34 +177,8 @@
       z-index: 2000;
     }
 
-    .mobile-nav.active {
+    .mobile-nav-wrapper:hover .mobile-nav {
       right: 0;
-    }
-
-    .menu-close {
-      position: absolute;
-      top: 24px;
-      right: 24px;
-      background: transparent;
-      border: none;
-      color: #fff;
-      font-size: 32px;
-      cursor: pointer;
-      line-height: 1;
-    }
-
-    .nav-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 1500;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(4px);
-      transition: opacity 0.3s ease;
-    }
-
-    .nav-overlay.active {
-      display: block;
     }
 
     .nav-toggle span {
@@ -345,36 +323,33 @@
       <a href="book-table.html"
         class="header-btn bg-primary text-black !no-underline px-6 py-3 rounded-[40px] font-semibold text-[15px] inline-flex items-center justify-center gap-2 border-none cursor-pointer transition-all duration-300 hover:bg-primary-light hover:-translate-y-[2px] hover:shadow-[0_8px_20px_rgba(255,157,66,0.2)] max-[991px]:hidden">កក់តុ</a>
 
-      <button
-        class="nav-toggle hidden max-[991px]:flex bg-transparent border-none cursor-pointer flex-col justify-between w-[28px] h-[18px] p-0 z-[2001]"
-        id="menu-toggle" aria-label="Open navigation">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+      <!-- Mobile menu wrapper: hover on hamburger to reveal menu -->
+      <div class="mobile-nav-wrapper hidden max-[991px]:block">
+        <div
+          class="nav-toggle flex bg-transparent border-none cursor-pointer flex-col justify-between w-[28px] h-[18px] p-0 z-[2001]">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <aside class="mobile-nav">
+          <a href="index.html"
+            class="text-white no-underline font-semibold text-lg py-2 px-1.5 transition-colors duration-300 hover:text-accent">ទំព័រដើម</a>
+          <a href="about.html"
+            class="text-white no-underline font-semibold text-lg py-2 px-1.5 transition-colors duration-300 hover:text-accent">អំពីយើង</a>
+          <a href="services.html"
+            class="text-white no-underline font-semibold text-lg py-2 px-1.5 transition-colors duration-300 hover:text-accent">សេវាកម្ម</a>
+          <a href="menu.html"
+            class="text-white no-underline font-semibold text-lg py-2 px-1.5 transition-colors duration-300 hover:text-accent">ម៉ឺនុយ</a>
+          <a href="gallery.html"
+            class="text-white no-underline font-semibold text-lg py-2 px-1.5 transition-colors duration-300 hover:text-accent">រូបភាព</a>
+          <a href="contact.html"
+            class="text-white no-underline font-semibold text-lg py-2 px-1.5 transition-colors duration-300 hover:text-accent">ទំនាក់ទំនង</a>
+          <a href="book-table.html"
+            class="mobile-book mt-3 inline-block bg-primary text-black px-5 py-3 rounded-[40px] font-semibold text-center transition-colors duration-300 hover:bg-primary-light">កក់តុ</a>
+        </aside>
+      </div>
     </div>
-
-    <aside class="mobile-nav" id="mobile-menu" aria-hidden="true">
-      <button class="menu-close" id="menu-close" aria-label="Close navigation">&times;</button>
-      <a href="index.html"
-        class="text-white no-underline font-semibold text-lg py-2 px-1.5 transition-colors duration-300 hover:text-accent">ទំព័រដើម</a>
-      <a href="about.html"
-        class="text-white no-underline font-semibold text-lg py-2 px-1.5 transition-colors duration-300 hover:text-accent">អំពីយើង</a>
-      <a href="services.html"
-        class="text-white no-underline font-semibold text-lg py-2 px-1.5 transition-colors duration-300 hover:text-accent">សេវាកម្ម</a>
-      <a href="menu.html"
-        class="text-white no-underline font-semibold text-lg py-2 px-1.5 transition-colors duration-300 hover:text-accent">ម៉ឺនុយ</a>
-      <a href="gallery.html"
-        class="text-white no-underline font-semibold text-lg py-2 px-1.5 transition-colors duration-300 hover:text-accent">រូបភាព</a>
-      <a href="book-table.html"
-        class="text-white no-underline font-semibold text-lg py-2 px-1.5 transition-colors duration-300 hover:text-accent">កក់តុ</a>
-      <a href="contact.html"
-        class="text-white no-underline font-semibold text-lg py-2 px-1.5 transition-colors duration-300 hover:text-accent">ទំនាក់ទំនង</a>
-      <a href="book-table.html"
-        class="mobile-book mt-3 inline-block bg-primary text-black px-5 py-3 rounded-[40px] font-semibold text-center transition-colors duration-300 hover:bg-primary-light">កក់តុ</a>
-    </aside>
-
-    <div class="nav-overlay" id="nav-overlay"></div>
   </header>
 
   <!-- About -->
